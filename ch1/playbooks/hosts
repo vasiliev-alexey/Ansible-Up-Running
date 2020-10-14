@@ -1,1 +1,1 @@
-host1 ansible_host=192.168.1.35 ansible_port=22
+host1 ansible_host=ans1 ansible_port=22

@@ -1,0 +1,2 @@
+[webservers]
+testserver ansible_host=ans1 ansible_port=22
