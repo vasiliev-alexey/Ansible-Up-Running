@@ -1,0 +1,38 @@
+
+---
+- name: test_vars
+  hosts: webservers
+  gather_facts: true
+  become: True
+  vars_files:
+    - vars_sample.yaml
+  tasks:
+    - name: Операционная система
+      debug:
+        msg: > 
+          Операционная система 
+          {{ansible_facts['distribution'] }} {{ansible_facts['distribution_version']}}
+    - name: Пример использования вложенного файла с переменными 
+      debug:
+        msg: "Переменная из вложенного файла: {{ tst }}"
+    - name: пример регистрации переменных
+      command: id -un
+      register: login # регистрируем переменную ак результат таски
+      ignore_errors: true # игнорируем ошибки
+    - name: Вывод ранее  зарегистрированной переменной
+      debug:  
+        msg: "Переменная из register: {{ login.stdout}}"
+    - name: fdf
+      setup:
+      register: facts
+    - name: print fact
+      debug:
+        msg: "Переменная из вложенного файла: {{ facts }}"    
+    - name: copy custom fact
+      copy:
+        src: ansible.fact
+        dest: /etc/ansible/facts.d/ansible.fact
+        force: no
+    - name: print custom fact
+      debug:
+        msg: "Кастомные переменные с хоста из файла: {{ ansible_local.ansible['test custom facts'].custom_fact}}"  
