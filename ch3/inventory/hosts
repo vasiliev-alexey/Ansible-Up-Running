@@ -1,0 +1,6 @@
+[production]
+testserver ansible_host=ans1 ansible_port=22
+testserver2 ansible_host=ans2 ansible_port=22
+
+[test]
+ans[1:2]
